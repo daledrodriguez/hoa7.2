@@ -4,10 +4,17 @@
   gather_facts: no
   tasks:
     - name: Fetch log files from Control Node
-      fetch:
-        src: /var/log
+      ansible.builtin.find:
+        paths: /var/log
+        file_type: file
+      register: log_files
+
+    - name: Fetch each log file
+      ansible.builtin.fetch:
+        src: "{{ item.path }}"
         dest: ~/hoa7/logs
         flat: yes
+      with_items: "{{ log_files.files }}"
 
 - name: Show collected logs
   hosts: localhost
