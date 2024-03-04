@@ -7,5 +7,5 @@
     - name: Gather log files
       fetch:
         src: /var/log/
-        dest: /path/to/local/directory/
+        dest: ~/hoa7/logs.txt
         flat: yes
